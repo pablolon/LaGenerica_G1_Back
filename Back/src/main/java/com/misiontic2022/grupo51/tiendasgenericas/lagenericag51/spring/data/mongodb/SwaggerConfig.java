@@ -19,13 +19,13 @@ public class SwaggerConfig {
 	public Docket apiDocket() {
 		//RECORDAR CAMBIAR EL PAQUETE BASE AL PAQUETE BO DE CADA UNO
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.roca12.misiontic2022.spring.data.mongodb.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.misiontic2022.grupo51.tiendasgenericas.lagenericag51.spring.data.mongodb.controller"))
 				.paths(PathSelectors.any()).build()
 				.apiInfo(getApiInfo());
 	}
 
 	private ApiInfo getApiInfo() {
-		return new ApiInfo("Api test Spring-Angular-MongoDB", "Back-End Tiendas los tiburones", "1.0", "",
+		return new ApiInfo("Api test Spring-Angular-MongoDB", "Back-End Tienda la Generica", "1.0", "",
 				new Contact("", "", ""), "", "",
 				Collections.emptyList());
 	}  
