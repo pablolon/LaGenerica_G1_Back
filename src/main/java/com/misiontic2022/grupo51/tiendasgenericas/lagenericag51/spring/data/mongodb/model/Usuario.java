@@ -51,11 +51,11 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNombre_completo() {
+	public String getNombrecompleto() {
 		return nombrecompleto;
 	}
-	public void setNombre_completo(String nombre_completo) {
-		this.nombrecompleto = nombre_completo;
+	public void setNombrecompleto(String nombrecompleto) {
+		this.nombrecompleto = nombrecompleto;
 	}
 	public String getEmail() {
 		return email;

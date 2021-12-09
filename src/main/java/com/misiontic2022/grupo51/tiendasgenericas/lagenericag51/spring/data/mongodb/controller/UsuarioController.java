@@ -52,12 +52,12 @@ public class UsuarioController {
 
 	}
 
-	@GetMapping("/usuarios/{id}")
-	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") String id) {
-		Optional<Usuario> usuarioData = usuarioRepository.findById(id);
+	@GetMapping("/usuarios/{username}")
+	public ResponseEntity<Usuario> getUsuarioByUsername(@PathVariable("username") String username) {
+		List<Usuario> usuarioData = usuarioRepository.findByUsername(username);
 
-		if (usuarioData.isPresent()) {
-			return new ResponseEntity<>(usuarioData.get(), HttpStatus.OK);
+		if (usuarioData!=null) {
+			return new ResponseEntity<>(usuarioData.get(0), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -67,7 +67,7 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario user) {
 		try {
 			Usuario _usuario = usuarioRepository.save(
-					new Usuario(user.getUsername(), user.getPassword(), user.getNombre_completo(), user.getEmail()));
+					new Usuario(user.getUsername(), user.getPassword(), user.getNombrecompleto(), user.getEmail()));
 			return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
