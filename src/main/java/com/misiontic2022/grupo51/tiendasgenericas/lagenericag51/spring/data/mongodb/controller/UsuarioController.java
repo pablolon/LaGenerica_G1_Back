@@ -2,7 +2,7 @@ package com.misiontic2022.grupo51.tiendasgenericas.lagenericag51.spring.data.mon
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	@GetMapping("/usuarios")
+	@GetMapping("/usuario")
 	public ResponseEntity<List<Usuario>> getAllUsuarios(@RequestParam(required = false) String username) {
 		try {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -51,8 +51,10 @@ public class UsuarioController {
 		}
 
 	}
+	
+	
 
-	@GetMapping("/usuarios/{username}")
+	@GetMapping("/usuario/{username}")
 	public ResponseEntity<Usuario> getUsuarioByUsername(@PathVariable("username") String username) {
 		List<Usuario> usuarioData = usuarioRepository.findByUsername(username);
 
@@ -63,7 +65,7 @@ public class UsuarioController {
 		}
 	}
 
-	@PostMapping("/usuarios")
+	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario user) {
 		try {
 			Usuario _usuario = usuarioRepository.save(
@@ -74,24 +76,26 @@ public class UsuarioController {
 		}
 	}
 
-	@PutMapping("/usuarios/{id}")
-	public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") String id, @RequestBody Usuario user) {
-		Optional<Usuario> usuarioData = usuarioRepository.findById(id);
+	@PutMapping("/usuario/{username}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable("username") String username, @RequestBody Usuario user) {
+		List<Usuario> usuarioData = usuarioRepository.findByUsername(username);
 
-		if (usuarioData.isPresent()) {
-			Usuario _usuario = usuarioData.get();
+		if (usuarioData!=null) {
+			Usuario _usuario = usuarioData.get(0);
 			_usuario.setUsername(user.getUsername());
 			_usuario.setPassword(user.getPassword());
+			_usuario.setNombrecompleto(user.getNombrecompleto());
+			_usuario.setEmail(user.getEmail());
 			return new ResponseEntity<>(usuarioRepository.save(_usuario), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@DeleteMapping("/usuarios/{id}")
-	public ResponseEntity<HttpStatus> deleteUsuarios(@PathVariable("id") String id) {
+	@DeleteMapping("/usuario/{username}")
+	public ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("username") String username) {
 		try {
-			usuarioRepository.deleteById(id);
+			usuarioRepository.deleteByUsername(username);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
