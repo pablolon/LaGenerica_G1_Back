@@ -11,7 +11,7 @@ import com.misiontic2022.grupo51.tiendasgenericas.lagenericag51.spring.data.mong
 public interface UsuarioRepository extends MongoRepository<Usuario, String>{
 	
 	List<Usuario> findByUsername(String username);
-	
 	List<Usuario> findByNombrecompleto(String nombrecompleto);
+	List<Usuario> deleteByUsername(String username);
 
 }
