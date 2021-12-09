@@ -127,5 +127,19 @@ public class ProductoController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/productos/codigo/{codigo}")
+	public ResponseEntity<List<Producto>> findByCodigo(@PathVariable("codigo") long codigo) {
+		try {
+			List<Producto> productos = productoRepository.findByCodigoproducto(codigo);
+
+			if (productos.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(productos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
