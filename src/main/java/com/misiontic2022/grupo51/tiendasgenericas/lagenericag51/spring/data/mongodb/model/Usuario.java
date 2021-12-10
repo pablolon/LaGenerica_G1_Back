@@ -3,7 +3,7 @@ package com.misiontic2022.grupo51.tiendasgenericas.lagenericag51.spring.data.mon
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "usuario")
+@Document(collection = "usuarios")
 public class Usuario {
 	
 	
@@ -29,8 +29,6 @@ public class Usuario {
 		this.nombrecompleto = nombrecompleto;
 		this.email = email;
 	}
-
-
 
 
 	public String getId() {
